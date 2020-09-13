@@ -29,12 +29,17 @@ public class TCPServer {
             //获取流对象
             InputStream inputStream = accept.getInputStream();
             reader = new BufferedReader(new InputStreamReader(inputStream));
-            //读取数据
-            String s = reader.readLine();
-            InetAddress inetAddress = accept.getInetAddress();
-            //获取客户端的IP地址
-            String hostAddress = inetAddress.getHostAddress();
-            System.out.println(hostAddress + "发送的数据是：" + s);
+            while (true) {
+                //读取数据
+                String s = reader.readLine();
+                InetAddress inetAddress = accept.getInetAddress();
+                if ("exit".equals(s)) {
+                    break;
+                }
+                //获取客户端的IP地址
+                String hostAddress = inetAddress.getHostAddress();
+                System.out.println(hostAddress + "发送的数据是：" + s);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
